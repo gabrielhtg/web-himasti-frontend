@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@700&display=swap");
+
+.wrapper {
+  /* height: 100vh; */
+  /*This part is important for centering*/
+  display: grid;
+  place-items: center;
+}
+
+.typing-demo {
+  width: 6ch;
+  animation: typing 0.7s steps(6), blink 0.5s step-end infinite alternate,
+    removeBlink 0s 0.8s forwards;
+  /* animation: typing 0.8s steps(6), blink 0.5s step-end infinite alternate; */
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid;
+  font-family: "Roboto Mono", monospace;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+    z-index: 10;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+    border-right: none;
+  }
+}
+
+@keyframes removeBlink {
+  to {
+    border-right: none;
+  }
+}
+
+.image-container {
+  animation: fadeIn 0.7s ease-in-out;
+  animation-delay: 1s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
