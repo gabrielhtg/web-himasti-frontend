@@ -4,5 +4,6 @@
 @tailwind utilities;
 
 body {
+  top: 0;
   font-family: "Inter", sans-serif;
 }

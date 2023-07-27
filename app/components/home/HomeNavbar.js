@@ -90,11 +90,12 @@ export default function HomeNavbar() {
                   <li className="px-5">
                     <button
                       id="tombol-login"
-                      className="mt-5 shadow-lg bg-blue-600 hover:bg-blue-700 text-white py-1 px-4 rounded-md md:mt-0 "
+                      className="transition delay-75 ease-in mt-5 shadow-lg bg-blue-600 hover:bg-blue-700 text-white py-1 px-4 rounded-md md:mt-0 "
                       onClick={function () {
                         // console.log(tampilanLogin);
                         tampilanLogin.current.classList.toggle("hidden");
                         tampilanLogin.current.classList.toggle("flex");
+                        tampilanLogin.current.classList.toggle("items-center");
                       }}
                     >
                       Login

@@ -4,10 +4,10 @@ import Content from "./components/home/AboutHimasti";
 
 export default function Home() {
   return (
-    <>
+    <div className=" top-0">
       <HomeNavbar />
       <FirstPage />
       <Content />
-    </>
+    </div>
   );
 }
