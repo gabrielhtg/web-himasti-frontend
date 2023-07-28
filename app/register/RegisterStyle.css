@@ -1,9 +1,13 @@
 @tailwind base;
 
-.tempat-input label {
-  @apply block text-left;
+.tempat-input .inputTitle {
+  @apply text-left mb-1 block;
 }
 
 .tempat-input input {
-  @apply rounded-md;
+  @apply rounded-md w-full max-w-lg sm:text-left text-left;
+}
+
+.tempat-input {
+  @apply px-5;
 }

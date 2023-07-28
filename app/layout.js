@@ -1,4 +1,5 @@
 import "./(style)/defaultStyle.css";
+// import "./globals.css";
 
 export const metadata = {
   title: "HIMASTI IT Del",
