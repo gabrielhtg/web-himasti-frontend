@@ -1,34 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import "./(style)/NavbarStyle.css";
 import Link from "next/link";
 
 export default function Navbar() {
-  useEffect(() => {
-    const navigasiKita = document.querySelector("#navigasi-kita");
-    const jarakKeTop = navigasiKita.offsetTop;
-
-    if (window.innerWidth < 640) {
-      navigasiKita.classList.add("kasih-bayangan");
-    }
-
-    window.onscroll = function () {
-      if (window.scrollY > jarakKeTop) {
-        navigasiKita.classList.add("kasih-bayangan");
-        navigasiKita.classList.remove("sm:bg-transparent");
-      } else {
-        navigasiKita.classList.remove("kasih-bayangan");
-        navigasiKita.classList.add("sm:bg-transparent");
-      }
-    };
-  }, []);
-
   return (
     <>
       <div
         id="navigasi-kita"
-        className=" fixed top-0 w-full z-40 bg-transparent bg-white sm:bg-transparent"
+        className="top-0 w-full z-40 bg-white kasih-bayangan"
       >
         <div className="">
           <div className="flex items-center justify-between py-2 w-full">

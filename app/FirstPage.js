@@ -4,7 +4,7 @@ import Image from "next/image";
 import background from "./(images)/foto/latarHemat.jpg";
 import person from "./(images)/foto/person2.png";
 import bgPutih from "./(images)/foto/putih.png";
-import "./(style)/home/FirstPageStyle.css";
+import "./(style)/FirstPageStyle.css";
 import { useEffect } from "react";
 import { HiOutlineChevronDoubleDown } from "react-icons/hi";
 
@@ -36,31 +36,43 @@ export default function FirstPage() {
             <div className="typing-demo drop-shadow-xl mt-4">WE ARE</div>
           </div>
         </h1>
+        <div
+          id="scroll-bawah"
+          className="absolute z-30 w-full h-screen md:flex flex-col justify-end items-end hidden"
+        >
+          <a
+            href="#about"
+            className={
+              "flex justify-center items-center bg-slate-200 w-20 h-14  rounded-full hover:bg-slate-300 hover:w-14 hover:transition-all duration-300 ease-in-out delay-100 mr-10 mb-10 shadow-md border-2 border-slate-700"
+            }
+          >
+            <span className="animate-bounce absolute mt-1">
+              <HiOutlineChevronDoubleDown size={20} className=" inline" />
+            </span>
+          </a>
+        </div>
         <div className="relative">
           <div
             className={
-              "z-20 absolute bottom-0 flex flex-col items-center justify-end " +
+              "z-20 absolute -bottom-2 flex flex-col items-center justify-end " +
               nilaiTransformGambar
             }
-            id="gambar-putih"
           >
-            <a
+            {/* <a
               href="#about"
+              id="scroll-bawah"
               className={
-                "absolute 2xl:flex items-end -mb-20 bg-white px-5 py-4 rounded-full hidden" +
+                "absolute xl:flex justify-center items-center -mb-10 bg-white w-20 h-14  rounded-full hidden hover:bg-slate-200 hover:w-14 hover:transition-all duration-300 ease-in-out delay-100 " +
+                " " +
                 nilaiTransformGambar
               }
             >
-              <span>
-                <HiOutlineChevronDoubleDown
-                  size={20}
-                  className=" inline mr-2"
-                />
+              <span className="animate-bounce absolute mt-1">
+                <HiOutlineChevronDoubleDown size={20} className=" inline" />
               </span>
-              See More
-            </a>
+            </a> */}
 
-            <Image src={bgPutih} alt="bg putih"></Image>
+            <Image src={bgPutih} alt="bg putih" className="w-screen"></Image>
           </div>
           <Image
             src={person}
