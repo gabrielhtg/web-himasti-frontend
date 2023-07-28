@@ -1,10 +1,10 @@
-import HomeNavbar from "./components/home/HomeNavbar";
-import FirstPage from "./components/home/FirstPage";
-import Content from "./components/home/AboutHimasti";
+import Content from "./AboutHimasti";
+import FirstPage from "./FirstPage";
+import HomeNavbar from "./Navbar";
 
 export default function Home() {
   return (
-    <div className=" top-0">
+    <div>
       <HomeNavbar />
       <FirstPage />
       <Content />

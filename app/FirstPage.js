@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import background from "../../images/foto/latarHemat.jpg";
-import person from "../../images/foto/person2.png";
-import bgPutih from "../../images/foto/putih.png";
-import "../../style/home/FirstPageStyle.css";
+import background from "./(images)/foto/latarHemat.jpg";
+import person from "./(images)/foto/person2.png";
+import bgPutih from "./(images)/foto/putih.png";
+import "./(style)/home/FirstPageStyle.css";
 import { useEffect } from "react";
 import { HiOutlineChevronDoubleDown } from "react-icons/hi";
 

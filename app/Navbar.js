@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import "../../style/home/HomeNavBar.css";
-import Login from "./Login";
+import "./(style)/home/HomeNavBar.css";
+import Link from "next/link";
 
-export default function HomeNavbar() {
+export default function Navbar() {
   const tampilanLogin = useRef(null);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function HomeNavbar() {
 
   return (
     <>
-      <Login ref={tampilanLogin} />
+      {/* <Login ref={tampilanLogin} /> */}
       <div
         id="navigasi-kita"
         className=" fixed top-0 w-full z-40 bg-transparent bg-white sm:bg-transparent"
@@ -88,18 +88,20 @@ export default function HomeNavbar() {
                     </a>
                   </li>
                   <li className="px-5">
-                    <button
-                      id="tombol-login"
-                      className="transition delay-75 ease-in mt-5 shadow-lg bg-blue-600 hover:bg-blue-700 text-white py-1 px-4 rounded-md md:mt-0 "
-                      onClick={function () {
-                        // console.log(tampilanLogin);
-                        tampilanLogin.current.classList.toggle("hidden");
-                        tampilanLogin.current.classList.toggle("flex");
-                        tampilanLogin.current.classList.toggle("items-center");
-                      }}
-                    >
-                      Login
-                    </button>
+                    <Link href={"login"}>
+                      <button
+                        id="tombol-login"
+                        className="transition delay-75 ease-in mt-5 shadow-lg bg-blue-600 hover:bg-blue-700 text-white py-1 px-4 rounded-md md:mt-0 "
+                        // onClick={function () {
+                        //   // console.log(tampilanLogin);
+                        //   tampilanLogin.current.classList.toggle("hidden");
+                        //   tampilanLogin.current.classList.toggle("flex");
+                        //   tampilanLogin.current.classList.toggle("items-center");
+                        // }}
+                      >
+                        Login
+                      </button>
+                    </Link>
                   </li>
                 </ul>
               </nav>
