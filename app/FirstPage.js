@@ -4,22 +4,17 @@ import Image from "next/image";
 import background from "./(images)/foto/latarHemat.jpg";
 import person from "./(images)/foto/person2.png";
 import bgPutih from "./(images)/foto/putih.png";
-import "./(style)/FirstPageStyle.css";
-import { useEffect } from "react";
+// import "./(style)/FirstPageStyle.css";
+// import { useEffect } from "react";
 import { HiOutlineChevronDoubleDown } from "react-icons/hi";
 
 export default function FirstPage() {
   const nilaiTransformGambar =
     " 2xl:-translate-y-72 xl:-translate-y-60 md:-translate-y-28 sm:-translate-y-28 translate-y-4";
-  useEffect(() => {
-    const gambarHanny = document.querySelector("#gambar-hanny");
 
-    const delay = () => {
-      gambarHanny.classList.remove("scale-0");
-    };
+  // useEffect(() => {
 
-    setTimeout(delay, 1000);
-  }, []);
+  // }, []);
 
   return (
     <div className="">
@@ -79,8 +74,16 @@ export default function FirstPage() {
             priority={true}
             alt="person hanny"
             id="gambar-hanny"
+            // onLoad={(e) => {
+            //   // function gas() {
+            //   e.currentTarget.classList.toggle("scale-0");
+            //   e.currentTarget.classList.toggle("image-container");
+            //   // }
+
+            //   // setTimeout(gas, 1000);
+            // }}
             className={
-              "scale-0 image-container z-20 bg-cover w-full top-0" +
+              "image-container z-20 bg-cover w-full top-0" +
               nilaiTransformGambar
             }
           ></Image>
