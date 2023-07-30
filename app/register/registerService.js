@@ -1,29 +1,39 @@
-export default function registerUser(Event) {
-  //   Event.preventDefault();
-  console.log("Submit dieksekusi");
+export default function registerService(
+  token,
+  username,
+  password,
+  firstName,
+  lastName
+) {
   const url = "http://192.168.43.201:8080/api/himasti/user/register";
-  const username = document.querySelector("#username").value;
-  const password = document.querySelector("#password");
-  const firstName = document.querySelector("#firstName").value;
-  const lastName = document.querySelector("#lastName").value;
-  const fotoProfil = document.querySelector("#fotoProfil").files[0];
-  const angkatan = document.querySelector("#angkatan").value;
-  const tempatLahir = document.querySelector("#tempatLahir").value;
-  const tanggalLahir = document.querySelector("#tanggalLahir").value;
 
-  const reader = new FileReader();
-  reader.onload = (Event) => {
-    const dataFoto = Event.target.result;
+  console.log(password);
+  const reqData = {
+    username: username,
+    password: password,
+    firstName: firstName,
+    lastName: lastName,
   };
 
-  console.log(dataFoto);
-  //   const dataRequest = {
-  //     username : username,
-  //     password : password.value,
-  //     firstName : firstName,
-  //     lastName : lastName,
-  //     fotoProfil :
-  //   }
+  const reqOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      TOKEN: token,
+    },
+    body: JSON.stringify(reqData),
+  };
 
-  //   fetch(url, )
+  fetch(url, reqOptions)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if (data.error == false) {
+        alert("Register Sukses boss");
+      } else {
+        alert("Register gagal boss");
+      }
+      window.location.reload();
+    });
 }

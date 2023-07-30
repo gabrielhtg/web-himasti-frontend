@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import Navbar from "../NavbarBiasa";
 import Register from "./Register";
 
