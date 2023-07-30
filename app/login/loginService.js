@@ -1,11 +1,9 @@
-export default function loginService() {
+export default function loginService(username, password) {
   const url = "http://192.168.43.201:8080/api/himasti/auth/login";
-  const reqUsername = document.querySelector("#username").value;
-  const reqPassword = document.querySelector("#password").value;
 
   const reqData = {
-    username: reqUsername,
-    password: reqPassword,
+    username: username,
+    password: password,
   };
 
   const reqOptions = {
@@ -21,7 +19,7 @@ export default function loginService() {
       return response.json();
     })
     .then((data) => {
-      if (data.pesanError == null) {
+      if (data.error == false) {
         alert("Login Sukses boss");
       } else {
         alert("Login gagal");
