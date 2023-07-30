@@ -3,120 +3,88 @@
 import { useEffect, useState } from "react";
 import "./(style)/NavbarStyle.css";
 import Link from "next/link";
+import profil from "./(images)/foto/profil.png";
+import Image from "next/image";
 
 export default function Navbar() {
-  const [hamburger, setHamburger] = useState("");
-
-  // useEffect(() => {
-  const container = document.getElementById("mini-nav");
-
-  document.body.addEventListener("click", (e) => {
-    // console.log(
-    //   !e.target.closest("#mini-nav" && hamburger === "hamburger-active")
-    // );
-
-    console.log(!e.target.closest("#mini-nav"));
-
-    // console.log(hamburger);
-    if (!e.target.closest("#mini-nav") && hamburger === "hamburger-active") {
-      setHamburger("");
-      container.classList.add("hidden");
-    }
-
-    // if (!e.target.closest("#mini-nav"))
-  });
-  // }, []);
-
   return (
-    <>
-      <div
-        id="navigasi-kita"
-        className="top-0 sm:fixed w-full z-10 bg-white kasih-bayangan"
-      >
-        <div className="">
-          <div className="flex items-center justify-between py-2 w-full">
-            <div className="px-4 md:px-8 2xl:px-20 flex justify-center items-center">
-              <Link
-                href={"./"}
-                className="font-bold text-2xl drop-shadow-lg lg:text-2xl"
-              >
-                <span className=" text-slate-800">HIMASTI </span>
-                <span className="text-slate-900 font-normal hidden lg:inline">
-                  INSTITUT TEKNOLOGI DEL
-                </span>
-              </Link>
+    <div className="navbar bg-base-100 border-b-2 sm:absolute z-10">
+      <div className="dropdown md:hidden">
+        <label tabIndex="0" className="btn btn-ghost btn-circle">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16M4 18h7"
+            />
+          </svg>
+        </label>
+        <ul
+          tabIndex="0"
+          className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+        >
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a>Portfolio</a>
+          </li>
+          <li>
+            <a>About</a>
+          </li>
+          <li>
+            <a>Contact Us</a>
+          </li>
+        </ul>
+      </div>
+      <div className="flex-1">
+        <a href="/" className="btn btn-ghost normal-case text-xl">
+          HIMASTI
+        </a>
+      </div>
+
+      {/* menu besar start */}
+      <div className="hidden md:flex md:w-96 md:justify-evenly">
+        <span>Home</span>
+        <span>Portfolio</span>
+        <span>About</span>
+        <span>Contact Us</span>
+      </div>
+      {/* menu besar end */}
+
+      <div className="flex-none gap-2">
+        <div className="dropdown dropdown-end">
+          <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+            <div className="w-10 rounded-full border border-primary">
+              <Image alt="foto-profil" src={profil}></Image>
             </div>
-
-            <div className="px-4 2xl:px-20 flex">
-              <button
-                className={"py-1 md:hidden" + " " + hamburger}
-                onClick={function () {
-                  const miniNav = document.getElementById("mini-nav");
-
-                  if (hamburger === "") {
-                    setHamburger("hamburger-active");
-                    miniNav.classList.toggle("hidden");
-                  }
-                  // else {
-                  //   setHamburger("");
-                  //   miniNav.classList.toggle("hidden");
-                  // }
-                }}
-              >
-                <span className="hamburger-line origin-top-left transition duration-300 ease-in-out"></span>
-                <span className="hamburger-line transition duration-300 ease-in-out"></span>
-                <span className="hamburger-line origin-bottom-left transition duration-300 ease-in-out"></span>
-              </button>
-
-              <nav
-                // className="hidden absolute mr-6 right-1 bg-white top-full mt-2 shadow-lg py-3 px-3 rounded-md text-center md:flex md:static md:bg-transparent md:py-2 md:shadow-none md:px-0 md:mr-0 md:right-0 md:mt-0 lg:text-md"
-
-                className={
-                  "absolute z-10 bg-white shadow-utama py-2 right-5 mt-16 md:mt-0 hidden md:flex md:shadow-none md:static"
-                }
-                id="mini-nav"
-              >
-                <ul className="block md:flex">
-                  <li className="hover:text-blue-600 px-5">
-                    <Link
-                      href={"./"}
-                      className="flex items-center text-base py-1"
-                    >
-                      Home
-                    </Link>
-                  </li>
-                  <li className="hover:text-blue-600 px-5">
-                    <a
-                      href="#home"
-                      className="flex items-center text-base py-1"
-                    >
-                      About
-                    </a>
-                  </li>
-                  <li className="hover:text-blue-600 px-5">
-                    <a
-                      href="#home"
-                      className="flex items-center text-base py-1"
-                    >
-                      Contact Us
-                    </a>
-                  </li>
-                  <li className="px-5">
-                    <Link href={"login"}>
-                      <button
-                        id="tombol-login"
-                        className="transition delay-75 ease-in mt-5 shadow-lg bg-blue-600 hover:bg-blue-700 text-white py-1 px-4 rounded-md md:mt-0 "
-                      >
-                        Login
-                      </button>
-                    </Link>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
+          </label>
+          <ul
+            tabIndex={0}
+            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+          >
+            <li>
+              <a className="justify-between">
+                Profile
+                <span className="badge">New</span>
+              </a>
+            </li>
+            <li>
+              <a>Settings</a>
+            </li>
+            <li>
+              <a>Logout</a>
+            </li>
+          </ul>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -1,0 +1,23 @@
+#alert-error {
+  animation-name: atasKeBawah;
+  animation-duration: 1.9s;
+  animation-timing-function: ease;
+}
+
+@keyframes atasKeBawah {
+  0% {
+    transform: translateY(0px);
+  }
+
+  15% {
+    transform: translateY(240px);
+  }
+
+  85% {
+    transform: translateY(230px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
