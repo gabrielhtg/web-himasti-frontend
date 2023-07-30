@@ -12,6 +12,13 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      boxShadow: {
+        utama: "0px 7px 29px 0px rgba(100, 100, 111, 0.2)",
+      },
+
+      colors: {
+        formulir: "#243c5a",
+      },
     },
   },
   plugins: [require("@tailwindcss/forms")],

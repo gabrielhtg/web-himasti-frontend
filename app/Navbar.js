@@ -1,17 +1,19 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import "../../style/home/HomeNavBar.css";
-import Login from "./Login";
+import "./(style)/NavbarStyle.css";
+import Link from "next/link";
 
-export default function HomeNavbar() {
-  const tampilanLogin = useRef(null);
-
+export default function Navbar() {
   useEffect(() => {
-    window.onscroll = function () {
-      const navigasiKita = document.querySelector("#navigasi-kita");
-      const jarakKeTop = navigasiKita.offsetTop;
+    const navigasiKita = document.querySelector("#navigasi-kita");
+    const jarakKeTop = navigasiKita.offsetTop;
 
+    if (window.innerWidth < 640) {
+      navigasiKita.classList.add("kasih-bayangan");
+    }
+
+    window.onscroll = function () {
       if (window.scrollY > jarakKeTop) {
         navigasiKita.classList.add("kasih-bayangan");
         navigasiKita.classList.remove("sm:bg-transparent");
@@ -24,7 +26,6 @@ export default function HomeNavbar() {
 
   return (
     <>
-      <Login ref={tampilanLogin} />
       <div
         id="navigasi-kita"
         className=" fixed top-0 w-full z-40 bg-transparent bg-white sm:bg-transparent"
@@ -32,15 +33,15 @@ export default function HomeNavbar() {
         <div className="">
           <div className="flex items-center justify-between py-2 w-full">
             <div className="px-4 md:px-8 2xl:px-20 flex justify-center items-center">
-              <a
-                href="#home"
+              <Link
+                href={"./"}
                 className="font-bold text-2xl drop-shadow-lg lg:text-2xl"
               >
                 <span className=" text-slate-800">HIMASTI </span>
                 <span className="text-slate-900 font-normal hidden lg:inline">
                   INSTITUT TEKNOLOGI DEL
                 </span>
-              </a>
+              </Link>
             </div>
 
             <div className="px-4 2xl:px-20 flex">
@@ -64,12 +65,12 @@ export default function HomeNavbar() {
               >
                 <ul className="block md:flex">
                   <li className="hover:text-blue-600 px-5">
-                    <a
-                      href="#home"
+                    <Link
+                      href={"./"}
                       className="flex items-center text-base py-1"
                     >
                       Home
-                    </a>
+                    </Link>
                   </li>
                   <li className="hover:text-blue-600 px-5">
                     <a
@@ -88,17 +89,14 @@ export default function HomeNavbar() {
                     </a>
                   </li>
                   <li className="px-5">
-                    <button
-                      id="tombol-login"
-                      className="mt-5 shadow-lg bg-blue-600 hover:bg-blue-700 text-white py-1 px-4 rounded-md md:mt-0 "
-                      onClick={function () {
-                        // console.log(tampilanLogin);
-                        tampilanLogin.current.classList.toggle("hidden");
-                        tampilanLogin.current.classList.toggle("flex");
-                      }}
-                    >
-                      Login
-                    </button>
+                    <Link href={"login"}>
+                      <button
+                        id="tombol-login"
+                        className="transition delay-75 ease-in mt-5 shadow-lg bg-blue-600 hover:bg-blue-700 text-white py-1 px-4 rounded-md md:mt-0 "
+                      >
+                        Login
+                      </button>
+                    </Link>
                   </li>
                 </ul>
               </nav>
