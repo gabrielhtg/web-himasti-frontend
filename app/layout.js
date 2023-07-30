@@ -1,4 +1,5 @@
 import "./(style)/defaultStyle.css";
+import "./(style)/FirstPageStyle.css";
 // import "./globals.css";
 
 export const metadata = {

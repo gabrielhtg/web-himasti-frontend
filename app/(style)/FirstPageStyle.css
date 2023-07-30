@@ -39,8 +39,9 @@
 }
 
 .image-container {
-  animation: fadeIn 0.7s ease-in-out;
-  animation-delay: 1s;
+  opacity: 0;
+  animation: fadeIn 0.7s ease-in-out forwards;
+  animation-delay: 0.8s;
 }
 
 @keyframes fadeIn {
