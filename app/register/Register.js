@@ -1,49 +1,44 @@
-"use client";
-
 import Link from "next/link";
 import { useState } from "react";
-import "../(style)/loginStyle.css";
-import alertService from "../(component)/alertService";
+import alertService from "../../service/AlertService";
+import registerService from "../../service/RegisterService";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
-  const [errorMsg, setErrorMsg] = useState("");
   const [registerToken, setRegisterToken] = useState("");
   const [nama, setNama] = useState("");
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const router = useRouter();
 
   return (
     <div className="py-10 px-5 text-center sm:flex sm:flex-col sm:h-screen sm:justify-center sm:items-center sm:absolute sm:w-full sm:top-0">
-      <div className="sm:border sm:bg-white sm:px-10 sm:py-10 sm:rounded-xl w-full max-w-lg sm:border-neutral sm:shadow-utama">
-        <h1 className="text-2xl font-bold text-neutral">
-          Yuk Daftarkan Akunmu
-        </h1>
+      <div className="sm:border sm:px-10 sm:py-10 sm:rounded-xl w-full max-w-lg sm:border-neutral sm:shadow-utama">
+        <h1 className="text-2xl font-bold">Yuk Daftarkan Akunmu</h1>
 
         {/* minta token start */}
         <div id="div-token">
-          <form className="mt-10">
-            <div className="flex flex-col justify-center items-center">
-              <p className="mb-5 w-full max-w-sm text-center">
-                Sebelum masuk. Masukkan Register Token yang sudah kamu terima
-                dari admin HIMASTI.
-              </p>
-              <div className="w-full max-w-sm">
-                <label className="label">
-                  <span className="label-text">Register Token</span>
-                </label>
-                <input
-                  id="input-token"
-                  autoComplete="off"
-                  type="text"
-                  autoCapitalize="off"
-                  placeholder="Type here"
-                  className="input input-bordered w-full max-w-sm"
-                />
-              </div>
+          <div className="flex flex-col justify-center items-center mt-10">
+            <p className="mb-5 w-full max-w-sm text-center">
+              Sebelum masuk. Masukkan Register Token yang sudah kamu terima dari
+              admin HIMASTI.
+            </p>
+            <div className="w-full max-w-sm">
+              <label className="label">
+                <span className="label-text">Register Token</span>
+              </label>
+              <input
+                id="input-token"
+                autoComplete="off"
+                type="text"
+                autoCapitalize="off"
+                placeholder="Type here"
+                className="input input-bordered w-full max-w-sm"
+              />
             </div>
-          </form>
+          </div>
 
           <button
+            id="tombol-next-token"
             className="btn btn-neutral btn-md mt-10 w-full max-w-[250px]"
             onClick={() => {
               let inputToken = document.getElementById("input-token").value;
@@ -56,8 +51,7 @@ export default function Register() {
                 divToken.classList.toggle("hidden");
                 divInputNamaUsername.classList.toggle("hidden");
               } else {
-                setErrorMsg("Isi token terlebih dahulu!");
-                alertService();
+                alertService(null, "Isi token terlebih dahulu!");
               }
             }}
           >
@@ -124,8 +118,7 @@ export default function Register() {
 
                 divPassword.classList.toggle("hidden");
               } else {
-                setErrorMsg("Lengkapi Form Dulu!");
-                alertService();
+                alertService(null, "Lengkapi Form Dulu!");
               }
             }}
           >
@@ -149,9 +142,7 @@ export default function Register() {
                 </label>
                 <input
                   id="input-password"
-                  autoComplete="off"
                   type="password"
-                  autoCapitalize="off"
                   placeholder="Type here"
                   className="input input-bordered w-full max-w-sm"
                 />
@@ -163,9 +154,7 @@ export default function Register() {
                 </label>
                 <input
                   id="input-re-enter-password"
-                  autoComplete="off"
                   type="password"
-                  autoCapitalize="off"
                   placeholder="Type here"
                   className="input input-bordered w-full max-w-sm"
                 />
@@ -175,55 +164,60 @@ export default function Register() {
 
           <button
             className="btn btn-neutral btn-md mt-10 w-full max-w-[250px]"
-            onClick={() => {
-              let inputPassword =
-                document.getElementById("input-password").value;
+            onClick={async () => {
+              const inputPassword =
+                document.querySelector("#input-password").value;
+              console.log(inputPassword);
 
-              let inputRePassword = document.getElementById(
-                "input-re-enter-password"
+              const inputRePassword = document.querySelector(
+                "#input-re-enter-password"
               ).value;
-
-              let divNamaUsername = document.getElementById("div-password");
 
               if (inputPassword !== "" && inputRePassword !== "") {
                 if (inputPassword === inputRePassword) {
-                  setPassword(inputRePassword);
-                  setErrorMsg("Register Berhasil");
-                  alertService("success");
-                  // divNamaUsername.classList.toggle("hidden");
+                  try {
+                    const statusLogin = await registerService(
+                      registerToken,
+                      username,
+                      inputPassword,
+                      nama
+                    );
+                    if (statusLogin.error == false) {
+                      alertService(
+                        "success",
+                        "Register berhasil! Tunggu sebentar, kamu akan diarahkan ke laman login."
+                      );
+                      setTimeout(() => {
+                        router.push("/login");
+                      }, 2000);
+                    } else {
+                      alertService(
+                        null,
+                        "Register gagal! " + statusLogin.pesanError
+                      );
+                      setTimeout(() => {
+                        location.reload();
+                      }, 2000);
+                    }
+                  } catch {
+                    alertService(null, "Gagal terhubung ke server!");
+                    setTimeout(() => {
+                      location.reload();
+                    }, 2000);
+                  }
+                } else {
+                  alertService(null, "Password tidak sama!");
                 }
               } else {
-                setErrorMsg("Lengkapi Form Dulu!");
-                alertService();
+                alertService(null, "Lengkapi Form Dulu!");
               }
             }}
           >
-            Selanjutnya
+            Register Now
           </button>
         </div>
 
-        {/* minta nama dan username end */}
-
-        <div className=" fixed w-full flex justify-center left-0 px-5 -top-[150px]">
-          <div className="  max-w-2xl w-full  hidden" id="alert-error">
-            <div className="alert alert-error">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="stroke-current shrink-0 h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <span>{errorMsg}</span>
-            </div>
-          </div>
-        </div>
+        {/* minta password end */}
 
         <p className="mt-5">
           Sudah punya akun? Yuks login{" "}

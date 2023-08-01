@@ -1,17 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import loginService from "./loginService";
+import loginService from "../../service/LoginService";
 import { useState } from "react";
-import "../(style)/loginStyle.css";
+import { useRouter } from "next/navigation";
+import alertService from "@/service/AlertService";
 
 export default function Login() {
-  const [errorMsg, setErrorMsg] = useState("");
+  const [msg, setMsg] = useState("");
+  const router = useRouter();
 
   return (
     <div className="py-10 px-5 text-center sm:flex sm:flex-col sm:h-screen sm:justify-center sm:items-center sm:absolute sm:w-full sm:top-0">
-      <div className="sm:border sm:bg-white sm:px-10 sm:py-10 sm:rounded-xl w-full max-w-lg sm:border-neutral sm:shadow-utama">
-        <h1 className="text-2xl font-bold text-neutral">Login Page</h1>
+      <div className="sm:border sm:px-10 sm:py-10 sm:rounded-xl w-full max-w-lg sm:border-neutral sm:shadow-utama">
+        <h1 className="text-2xl font-bold">Login Page</h1>
 
         <form className="mt-10">
           <div className="flex flex-col justify-center items-center">
@@ -23,7 +25,7 @@ export default function Login() {
                 id="input-username"
                 autoComplete="off"
                 type="text"
-                autoCapitalize="off"
+                autoCapitalize="none"
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-sm"
               />
@@ -48,7 +50,6 @@ export default function Login() {
         <button
           className="btn btn-neutral btn-md mt-10 w-full max-w-[250px]"
           onClick={async () => {
-            const alert = document.querySelector("#alert-error");
             const inputUsernameValue =
               document.querySelector("#input-username").value;
             const inputPasswordValue =
@@ -60,34 +61,19 @@ export default function Login() {
                 inputPasswordValue
               );
 
-              console.log(alert.firstChild);
-
               if (berhasilLogin) {
-                alert.firstChild.classList.remove("alert-error");
-                alert.firstChild.classList.add("alert-success");
-                alert.classList.remove("hidden");
+                alertService("success", "Berhasil Login");
                 setTimeout(() => {
-                  alert.classList.add("hidden");
-                  alert.firstChild.classList.add("alert-error");
-                  alert.firstChild.classList.remove("alert-success");
-                }, 2000);
-                setErrorMsg("Berhasil Login");
+                  router.push("/");
+                }, 1900);
               } else {
-                setErrorMsg(
+                alertService(
+                  null,
                   "Gagal Login. Pastikan username/password kamu benar!"
                 );
-                alert.classList.remove("hidden");
-                setTimeout(() => {
-                  alert.classList.add("hidden");
-                }, 2000);
               }
             } else {
-              alert.classList.remove("hidden");
-              setErrorMsg("Lengkapi form terlebih dahulu!");
-
-              setTimeout(() => {
-                alert.classList.add("hidden");
-              }, 2000);
+              alertService(null, "Lengkapi form terlebih dahulu!");
             }
           }}
         >
@@ -95,7 +81,7 @@ export default function Login() {
         </button>
 
         <div className=" fixed w-full flex justify-center left-0 px-5 -top-[150px]">
-          <div className="  max-w-2xl w-full  hidden" id="alert-error">
+          <div className="  max-w-2xl w-full  hidden" id="alert">
             <div className="alert alert-error">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -110,14 +96,14 @@ export default function Login() {
                   d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <span>{errorMsg}</span>
+              <span>{msg}</span>
             </div>
           </div>
         </div>
 
         <p className="mt-5">
           Belum punya akun? Yuks daftar{" "}
-          <Link className="text-info" href={"/register"}>
+          <Link className="text-info" href={"/register"} prefetch={true}>
             disini
           </Link>
         </p>

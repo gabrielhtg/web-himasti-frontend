@@ -1,6 +1,6 @@
 "use client";
 
-import Navbar from "../NavbarBiasa";
+import Navbar from "../Navbar";
 import Register from "./Register";
 
 export default function Home() {

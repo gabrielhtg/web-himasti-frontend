@@ -23,6 +23,7 @@ module.exports = {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["light", "dark", "corporate"],
+    themes: ["light", "dark"],
+    default: "light",
   },
 };

@@ -1,11 +1,14 @@
+"use client";
+
 import Content from "./AboutHimasti";
 import FirstPage from "./FirstPage";
-import HomeNavbar from "./Navbar";
+import Navbar from "./Navbar";
 
 export default function Home() {
   return (
     <div>
-      <HomeNavbar />
+      {/* <HomeNavbar /> */}
+      <Navbar />
       <FirstPage />
       <Content />
     </div>

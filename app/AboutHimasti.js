@@ -1,21 +1,19 @@
-"use client";
-
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 export default function AboutHimasti() {
-  useEffect(() => {
-    const scroller = document.querySelector("#scroll-bawah");
-    const about = document.querySelector("#about");
+  // useEffect(() => {
+  //   const scroller = document.querySelector("#scroll-bawah");
+  //   const about = document.querySelector("#about");
 
-    about.addEventListener("mouseenter", () => {
-      scroller.classList.remove("md:flex");
-      // scroller.classList.add("hidden");
-    });
+  //   about.addEventListener("mouseenter", () => {
+  //     scroller.classList.remove("md:flex");
+  //     // scroller.classList.add("hidden");
+  //   });
 
-    about.addEventListener("mouseleave", () => {
-      scroller.classList.add("md:flex");
-    });
-  }, []);
+  //   about.addEventListener("mouseleave", () => {
+  //     scroller.classList.add("md:flex");
+  //   });
+  // }, []);
   return (
     <>
       <div

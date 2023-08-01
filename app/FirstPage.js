@@ -4,17 +4,12 @@ import Image from "next/image";
 import background from "./(images)/foto/latarHemat.jpg";
 import person from "./(images)/foto/person2.png";
 import bgPutih from "./(images)/foto/putih.png";
-// import "./(style)/FirstPageStyle.css";
-// import { useEffect } from "react";
+import bgDark from "./(images)/foto/dark.png";
 import { HiOutlineChevronDoubleDown } from "react-icons/hi";
 
 export default function FirstPage() {
   const nilaiTransformGambar =
-    " 2xl:-translate-y-72 xl:-translate-y-60 md:-translate-y-28 sm:-translate-y-28 translate-y-4";
-
-  // useEffect(() => {
-
-  // }, []);
+    " 2xl:-translate-y-72 xl:-translate-y-60 md:-translate-y-28 sm:-translate-y-28 translate-y-0";
 
   return (
     <div className="">
@@ -31,60 +26,64 @@ export default function FirstPage() {
             <div className="typing-demo drop-shadow-xl mt-4">WE ARE</div>
           </div>
         </h1>
-        <div
+        {/* <div
           id="scroll-bawah"
-          className="absolute z-30 w-full h-screen md:flex flex-col justify-end items-end hidden"
+          className="absolute z-[2] w-full h-screen md:flex flex-col justify-end items-end hidden"
         >
           <a
             href="#about"
             className={
-              "flex justify-center items-center bg-slate-200 w-20 h-14  rounded-full hover:bg-slate-300 hover:w-14 hover:transition-all duration-300 ease-in-out delay-100 mr-10 mb-10 shadow-md border-2 border-slate-700"
+              "flex justify-center items-center w-20 h-14  rounded-full hover:w-14 hover:transition-all duration-300 ease-in-out delay-100 mr-10 mb-10 shadow-md border-2 bg-neutral"
             }
           >
-            <span className="animate-bounce absolute mt-1">
+            <span className="animate-bounce absolute mt-1 ">
               <HiOutlineChevronDoubleDown size={20} className=" inline" />
             </span>
           </a>
-        </div>
+        </div> */}
         <div className="relative">
           <div
             className={
-              "z-20 absolute -bottom-2 flex flex-col items-center justify-end " +
+              "z-[1] absolute -bottom-2 flex flex-col items-center justify-end " +
               nilaiTransformGambar
             }
           >
-            {/* <a
-              href="#about"
-              id="scroll-bawah"
-              className={
-                "absolute xl:flex justify-center items-center -mb-10 bg-white w-20 h-14  rounded-full hidden hover:bg-slate-200 hover:w-14 hover:transition-all duration-300 ease-in-out delay-100 " +
-                " " +
-                nilaiTransformGambar
-              }
-            >
-              <span className="animate-bounce absolute mt-1">
-                <HiOutlineChevronDoubleDown size={20} className=" inline" />
-              </span>
-            </a> */}
+            <Image
+              id="gambar-lengkung"
+              src={bgPutih}
+              alt="bg putih"
+              onLoad={async () => {
+                let theme = document
+                  .querySelector("html")
+                  .getAttribute("data-theme");
 
-            <Image src={bgPutih} alt="bg putih" className="w-screen"></Image>
+                if (theme !== "light") {
+                  let dataBgDark = document.getElementById(
+                    "gambar-lengkung-dark"
+                  );
+                  let dataLight = document.getElementById("gambar-lengkung");
+
+                  dataBgDark.classList.toggle("hidden");
+                  dataLight.classList.toggle("hidden");
+                }
+              }}
+              className="w-screen"
+            ></Image>
+
+            <Image
+              id="gambar-lengkung-dark"
+              src={bgDark}
+              alt="bg putih"
+              className="w-screen hidden"
+            ></Image>
           </div>
           <Image
             src={person}
             priority={true}
             alt="person hanny"
             id="gambar-hanny"
-            // onLoad={(e) => {
-            //   // function gas() {
-            //   e.currentTarget.classList.toggle("scale-0");
-            //   e.currentTarget.classList.toggle("image-container");
-            //   // }
-
-            //   // setTimeout(gas, 1000);
-            // }}
             className={
-              "image-container z-20 bg-cover w-full top-0" +
-              nilaiTransformGambar
+              "image-container z-[1] w-full top-0" + nilaiTransformGambar
             }
           ></Image>
         </div>

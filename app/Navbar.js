@@ -1,101 +1,237 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import "./(style)/NavbarStyle.css";
-import Link from "next/link";
+import "../style/NavbarStyle.css";
+import profil from "./(images)/foto/profil.png";
+import Image from "next/image";
 import { themeChange } from "theme-change";
+import { useEffect } from "react";
+import Link from "next/link";
+import firstLoadService from "../service/isLoginService";
+import "../style/alertStyle.css";
+
+// import bgDark from "./(images)/foto/dark.png";
+import LogoutService from "@/service/LogoutService";
+import alertService from "@/service/AlertService";
 
 export default function Navbar() {
   useEffect(() => {
     themeChange(false);
-    const navigasiKita = document.querySelector("#navigasi-kita");
-    const jarakKeTop = navigasiKita.offsetTop;
 
-    if (window.innerWidth < 640) {
-      navigasiKita.classList.add("kasih-bayangan");
+    let tombolTema = document.getElementsByClassName("tombol-tema");
+
+    if (document.querySelector("html").getAttribute("data-theme") == "dark") {
+      tombolTema[0].innerHTML = "Light Mode";
+      tombolTema[1].innerHTML = "Light Mode";
     }
 
-    window.onscroll = function () {
-      if (window.scrollY > jarakKeTop) {
-        navigasiKita.classList.add("kasih-bayangan");
-        navigasiKita.classList.remove("sm:bg-transparent");
-      } else {
-        navigasiKita.classList.remove("kasih-bayangan");
-        navigasiKita.classList.add("sm:bg-transparent");
-      }
-    };
+    firstLoadService();
   }, []);
 
   return (
-    <div
-      id="navigasi-kita"
-      className=" fixed top-0 w-full z-40 bg-transparent bg-white sm:bg-transparent"
-    >
-      <div className="">
-        <div className="flex items-center justify-between py-2 w-full">
-          <div className="px-4 md:px-8 2xl:px-20 flex justify-center items-center">
-            <Link
-              href={"./"}
-              className="font-bold text-2xl drop-shadow-lg lg:text-2xl"
-            >
-              <span className=" text-slate-800">HIMASTI </span>
-              <span className="text-slate-900 font-normal hidden lg:inline">
-                INSTITUT TEKNOLOGI DEL
-              </span>
-            </Link>
-          </div>
+    <div className="navbar bg-base-100 shadow-md sm:absolute z-10">
+      {/* alert start */}
 
-          <div className="px-4 2xl:px-20 flex">
-            <button
-              id="hamburger"
-              className="py-1 md:hidden"
-              onClick={function () {
-                const menuHimasti = document.querySelector("#menu-himasti");
-                hamburger.classList.toggle("hamburger-active");
-                menuHimasti.classList.toggle("hidden");
+      <div className=" fixed z-10 w-full flex justify-center left-0 px-5 -top-[150px]">
+        <div className="max-w-2xl w-full hidden " id="alert">
+          <div className="alert flex justify-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="stroke-current shrink-0 h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span id="alert-msg"></span>
+          </div>
+        </div>
+      </div>
+
+      {/* alert end */}
+
+      <div className="dropdown lg:hidden">
+        <label tabIndex="0" className="btn btn-ghost btn-circle">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16M4 18h7"
+            />
+          </svg>
+        </label>
+        <ul
+          tabIndex="0"
+          className="menu dropdown-content w-auto mt-3 z-[2] p-2 shadow bg-base-100 rounded-box"
+        >
+          <li>
+            <Link href="/" replace={true} prefetch={true}>
+              Home
+            </Link>
+          </li>
+          <li>
+            <a>Portfolio</a>
+          </li>
+          <li>
+            <a>Contact Us</a>
+          </li>
+          <li>
+            <Link href={"#about"}>About</Link>
+          </li>
+
+          <li>
+            <div
+              id=""
+              className="w-28 tombol-tema"
+              data-toggle-theme="light,dark"
+              data-act-class="ACTIVECLASS"
+              onClick={(e) => {
+                let htmlElement = document.querySelector("html");
+                if (htmlElement.getAttribute("data-theme") == "dark") {
+                  e.target.innerHTML = "Light Mode";
+                } else {
+                  e.target.innerHTML = "Dark Mode";
+                }
+
+                try {
+                  let gambarLengkung =
+                    document.querySelector("#gambar-lengkung");
+                  let gambarLengkungDark = document.querySelector(
+                    "#gambar-lengkung-dark"
+                  );
+
+                  gambarLengkung.classList.toggle("hidden");
+                  gambarLengkungDark.classList.toggle("hidden");
+                } catch {}
               }}
             >
-              <span className="hamburger-line origin-top-left transition duration-300 ease-in-out"></span>
-              <span className="hamburger-line transition duration-300 ease-in-out"></span>
-              <span className="hamburger-line origin-bottom-left transition duration-300 ease-in-out"></span>
-            </button>
+              Dark Mode
+            </div>
+          </li>
+          <li>
+            {/* tombol login start */}
+            <Link href={"/login"} id="tombol-login" className="">
+              Login
+            </Link>
+            {/* tombol login end */}
+          </li>
+        </ul>
+      </div>
+      <div className="flex-1">
+        <Link
+          href="/"
+          className="btn btn-ghost normal-case text-xl lg:text-2xl"
+        >
+          HIMASTI
+        </Link>
+      </div>
 
-            <nav
-              className="hidden absolute mr-6 right-1 bg-white top-full mt-2 shadow-lg py-3 px-3 rounded-md text-center md:flex md:static md:bg-transparent md:py-2 md:shadow-none md:px-0 md:mr-0 md:right-0 md:mt-0 lg:text-md"
-              id="menu-himasti"
-            >
-              <ul className="block md:flex">
-                <li className="hover:text-blue-600 px-5">
-                  <Link
-                    href={"./"}
-                    className="flex items-center text-base py-1"
-                  >
-                    Home
-                  </Link>
-                </li>
-                <li className="hover:text-blue-600 px-5">
-                  <a href="#home" className="flex items-center text-base py-1">
-                    About
-                  </a>
-                </li>
-                <li className="hover:text-blue-600 px-5">
-                  <a href="#home" className="flex items-center text-base py-1">
-                    Contact Us
-                  </a>
-                </li>
-                <li className="px-5">
-                  <Link href={"login"}>
-                    <button
-                      id="tombol-login"
-                      className="transition delay-75 ease-in mt-5 shadow-lg bg-blue-600 hover:bg-blue-700 text-white py-1 px-4 rounded-md md:mt-0 "
-                    >
-                      Login
-                    </button>
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
+      {/* menu besar start */}
+      <div className="hidden lg:flex lg:w-[600px] w-96 lg:justify-between text-lg mr-5">
+        <Link
+          href="/"
+          className=" hover:font-semibold transition-all ease-in-out"
+        >
+          Home
+        </Link>
+        <Link
+          href={"#"}
+          className="hover:font-semibold transition-all ease-in-out"
+        >
+          Portfolio
+        </Link>
+        <Link
+          href={"#"}
+          className="hover:font-semibold transition-all ease-in-out"
+        >
+          About
+        </Link>
+        <Link
+          href={"#"}
+          className="hover:font-semibold transition-all ease-in-out"
+        >
+          Contact Us
+        </Link>
+        <button
+          id=""
+          className="tombol-tema hover:font-semibold transition-all ease-in-out"
+          data-toggle-theme="light,dark"
+          data-act-class="ACTIVECLASS"
+          onClick={(e) => {
+            let htmlElement = document.querySelector("html");
+            if (htmlElement.getAttribute("data-theme") == "dark") {
+              e.target.innerHTML = "Light Mode";
+            } else {
+              e.target.innerHTML = "Dark Mode";
+            }
+
+            try {
+              let gambarLengkung = document.querySelector("#gambar-lengkung");
+              let gambarLengkungDark = document.querySelector(
+                "#gambar-lengkung-dark"
+              );
+
+              gambarLengkung.classList.toggle("hidden");
+              gambarLengkungDark.classList.toggle("hidden");
+            } catch {}
+          }}
+        >
+          Dark Mode
+        </button>
+        {/* tombol login start */}
+        <Link href={"/login"} id="tombol-login" className="">
+          <button className="btn btn-neutral">Login</button>
+        </Link>
+        {/* tombol login end */}
+      </div>
+      {/* menu besar end */}
+
+      <div className="flex-none gap-2 hidden" id="bagian-profil">
+        <div className="dropdown dropdown-end">
+          <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+            <div className="w-10 rounded-full border border-primary">
+              <Image alt="foto-profil" src={profil}></Image>
+            </div>
+          </label>
+          <ul
+            tabIndex={0}
+            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+          >
+            <li>
+              <a className="justify-between">
+                Profile
+                <span className="badge">New</span>
+              </a>
+            </li>
+            <li>
+              <a>Settings</a>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  if (LogoutService()) {
+                    alertService("success", "Berhasil Logout");
+                    setTimeout(() => {
+                      location.reload();
+                    }, 1900);
+                  } else {
+                    alertService(null, "");
+                  }
+                }}
+              >
+                Logout
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
