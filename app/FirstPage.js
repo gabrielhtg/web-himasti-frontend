@@ -6,6 +6,7 @@ import person from "./(images)/foto/person2.png";
 import bgPutih from "./(images)/foto/putih.png";
 import bgDark from "./(images)/foto/dark.png";
 import { HiOutlineChevronDoubleDown } from "react-icons/hi";
+import Link from "next/link";
 
 export default function FirstPage() {
   const nilaiTransformGambar =
@@ -26,21 +27,18 @@ export default function FirstPage() {
             <div className="typing-demo drop-shadow-xl mt-4">WE ARE</div>
           </div>
         </h1>
-        {/* <div
+        <div
           id="scroll-bawah"
           className="absolute z-[2] w-full h-screen md:flex flex-col justify-end items-end hidden"
         >
-          <a
-            href="#about"
-            className={
-              "flex justify-center items-center w-20 h-14  rounded-full hover:w-14 hover:transition-all duration-300 ease-in-out delay-100 mr-10 mb-10 shadow-md border-2 bg-neutral"
-            }
-          >
-            <span className="animate-bounce absolute mt-1 ">
+          <Link href={"#about"} className=" mr-16 mb-10">
+            {" "}
+            <button className="btn btn-circle">
               <HiOutlineChevronDoubleDown size={20} className=" inline" />
-            </span>
-          </a>
-        </div> */}
+            </button>
+          </Link>
+        </div>
+
         <div className="relative">
           <div
             className={

@@ -2,16 +2,14 @@
 
 import Link from "next/link";
 import loginService from "../../service/LoginService";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import alertService from "@/service/AlertService";
 
 export default function Login() {
-  const [msg, setMsg] = useState("");
   const router = useRouter();
 
   return (
-    <div className="py-10 px-5 text-center sm:flex sm:flex-col sm:h-screen sm:justify-center sm:items-center sm:absolute sm:w-full sm:top-0">
+    <div className="py-10 px-5 mt-16 sm:mt-0 text-center sm:flex sm:flex-col sm:h-screen sm:justify-center sm:items-center sm:absolute sm:w-full sm:top-0">
       <div className="sm:border sm:px-10 sm:py-10 sm:rounded-xl w-full max-w-lg sm:border-neutral sm:shadow-utama">
         <h1 className="text-2xl font-bold">Login Page</h1>
 
@@ -79,27 +77,6 @@ export default function Login() {
         >
           Login
         </button>
-
-        <div className=" fixed w-full flex justify-center left-0 px-5 -top-[150px]">
-          <div className="  max-w-2xl w-full  hidden" id="alert">
-            <div className="alert alert-error">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="stroke-current shrink-0 h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <span>{msg}</span>
-            </div>
-          </div>
-        </div>
 
         <p className="mt-5">
           Belum punya akun? Yuks daftar{" "}

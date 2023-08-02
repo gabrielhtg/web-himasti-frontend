@@ -11,7 +11,7 @@ export default function Register() {
   const router = useRouter();
 
   return (
-    <div className="py-10 px-5 text-center sm:flex sm:flex-col sm:h-screen sm:justify-center sm:items-center sm:absolute sm:w-full sm:top-0">
+    <div className="py-10 mt-16 sm:mt-0 px-5 text-center sm:flex sm:flex-col sm:h-screen sm:justify-center sm:items-center sm:absolute sm:w-full sm:top-0">
       <div className="sm:border sm:px-10 sm:py-10 sm:rounded-xl w-full max-w-lg sm:border-neutral sm:shadow-utama">
         <h1 className="text-2xl font-bold">Yuk Daftarkan Akunmu</h1>
 

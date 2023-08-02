@@ -7,7 +7,6 @@ import Link from "next/link";
 import firstLoadService from "../service/isLoginService";
 import "../style/alertStyle.css";
 
-// import bgDark from "./(images)/foto/dark.png";
 import LogoutService from "@/service/LogoutService";
 import alertService from "@/service/AlertService";
 
@@ -19,18 +18,17 @@ export default function Navbar() {
 
     if (document.querySelector("html").getAttribute("data-theme") == "dark") {
       tombolTema[0].innerHTML = "Light Mode";
-      tombolTema[1].innerHTML = "Light Mode";
     }
 
     firstLoadService();
   }, []);
 
   return (
-    <div className="navbar bg-base-100 shadow-md sm:absolute z-10">
+    <div className="navbar fixed top-0 bg-base-100 shadow-md sm:absolute z-10">
       {/* alert start */}
 
       <div className=" fixed z-10 w-full flex justify-center left-0 px-5 -top-[150px]">
-        <div className="max-w-2xl w-full hidden " id="alert">
+        <div className="max-w-2xl w-full hidden" id="alert">
           <div className="alert flex justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -52,8 +50,16 @@ export default function Navbar() {
 
       {/* alert end */}
 
-      <div className="dropdown lg:hidden">
-        <label tabIndex="0" className="btn btn-ghost btn-circle">
+      <div>
+        <label
+          tabIndex="0"
+          onClick={() => {
+            let menu = document.querySelector("#menu");
+            menu.classList.toggle("hidden");
+            menu.classList.toggle("flex");
+          }}
+          className="btn btn-ghost btn-circle lg:hidden"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
@@ -69,62 +75,6 @@ export default function Navbar() {
             />
           </svg>
         </label>
-        <ul
-          tabIndex="0"
-          className="menu dropdown-content w-auto mt-3 z-[2] p-2 shadow bg-base-100 rounded-box"
-        >
-          <li>
-            <Link href="/" replace={true} prefetch={true}>
-              Home
-            </Link>
-          </li>
-          <li>
-            <a>Portfolio</a>
-          </li>
-          <li>
-            <a>Contact Us</a>
-          </li>
-          <li>
-            <Link href={"#about"}>About</Link>
-          </li>
-
-          <li>
-            <div
-              id=""
-              className="w-28 tombol-tema"
-              data-toggle-theme="light,dark"
-              data-act-class="ACTIVECLASS"
-              onClick={(e) => {
-                let htmlElement = document.querySelector("html");
-                if (htmlElement.getAttribute("data-theme") == "dark") {
-                  e.target.innerHTML = "Light Mode";
-                } else {
-                  e.target.innerHTML = "Dark Mode";
-                }
-
-                try {
-                  let gambarLengkung =
-                    document.querySelector("#gambar-lengkung");
-                  let gambarLengkungDark = document.querySelector(
-                    "#gambar-lengkung-dark"
-                  );
-
-                  gambarLengkung.classList.toggle("hidden");
-                  gambarLengkungDark.classList.toggle("hidden");
-                } catch {}
-              }}
-            >
-              Dark Mode
-            </div>
-          </li>
-          <li>
-            {/* tombol login start */}
-            <Link href={"/login"} id="tombol-login" className="">
-              Login
-            </Link>
-            {/* tombol login end */}
-          </li>
-        </ul>
       </div>
       <div className="flex-1">
         <Link
@@ -135,67 +85,56 @@ export default function Navbar() {
         </Link>
       </div>
 
-      {/* menu besar start */}
-      <div className="hidden lg:flex lg:w-[600px] w-96 lg:justify-between text-lg mr-5">
-        <Link
-          href="/"
-          className=" hover:font-semibold transition-all ease-in-out"
-        >
-          Home
-        </Link>
-        <Link
-          href={"#"}
-          className="hover:font-semibold transition-all ease-in-out"
-        >
-          Portfolio
-        </Link>
-        <Link
-          href={"#"}
-          className="hover:font-semibold transition-all ease-in-out"
-        >
-          About
-        </Link>
-        <Link
-          href={"#"}
-          className="hover:font-semibold transition-all ease-in-out"
-        >
-          Contact Us
-        </Link>
-        <button
-          id=""
-          className="tombol-tema hover:font-semibold transition-all ease-in-out"
-          data-toggle-theme="light,dark"
-          data-act-class="ACTIVECLASS"
-          onClick={(e) => {
-            let htmlElement = document.querySelector("html");
-            if (htmlElement.getAttribute("data-theme") == "dark") {
-              e.target.innerHTML = "Light Mode";
-            } else {
-              e.target.innerHTML = "Dark Mode";
-            }
+      <ul
+        id="menu"
+        className="hidden items-start lg:flex menu menu-vertical absolute top-[72px] shadow-utama lg:top-0 lg:shadow-none lg:static lg:menu-horizontal bg-base-200 rounded-box"
+      >
+        <li>
+          <Link href="/" replace={true} prefetch={true}>
+            Home
+          </Link>
+        </li>
+        <li>
+          <Link className="w-full" href={"#about"}>
+            About
+          </Link>
+        </li>
+        <li className="">
+          <div
+            id=""
+            className="tombol-tema"
+            data-toggle-theme="light,dark"
+            data-act-class="ACTIVECLASS"
+            onClick={(e) => {
+              let htmlElement = document.querySelector("html");
+              if (htmlElement.getAttribute("data-theme") == "dark") {
+                e.target.innerHTML = "Light Mode";
+              } else {
+                e.target.innerHTML = "Dark Mode";
+              }
 
-            try {
-              let gambarLengkung = document.querySelector("#gambar-lengkung");
-              let gambarLengkungDark = document.querySelector(
-                "#gambar-lengkung-dark"
-              );
+              try {
+                let gambarLengkung = document.querySelector("#gambar-lengkung");
+                let gambarLengkungDark = document.querySelector(
+                  "#gambar-lengkung-dark"
+                );
 
-              gambarLengkung.classList.toggle("hidden");
-              gambarLengkungDark.classList.toggle("hidden");
-            } catch {}
-          }}
-        >
-          Dark Mode
-        </button>
-        {/* tombol login start */}
-        <Link href={"/login"} id="tombol-login" className="">
-          <button className="btn btn-neutral">Login</button>
-        </Link>
-        {/* tombol login end */}
-      </div>
-      {/* menu besar end */}
+                gambarLengkung.classList.toggle("hidden");
+                gambarLengkungDark.classList.toggle("hidden");
+              } catch {}
+            }}
+          >
+            Dark Mode
+          </div>
+        </li>
+        <li>
+          <Link href={"/login"} id="tombol-login" className="">
+            Login
+          </Link>
+        </li>
+      </ul>
 
-      <div className="flex-none gap-2 hidden" id="bagian-profil">
+      <div className="flex-none gap-2 hidden ml-5" id="bagian-profil">
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full border border-primary">
