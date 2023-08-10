@@ -1,35 +1,54 @@
+"use client";
+
 import "../style/NavbarStyle.css";
 import profil from "./(images)/foto/profil.png";
 import Image from "next/image";
 import { themeChange } from "theme-change";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import firstLoadService from "../service/isLoginService";
+import isLoginService from "../service/isLoginService";
 import "../style/alertStyle.css";
 
 import LogoutService from "@/service/LogoutService";
 import alertService from "@/service/AlertService";
+import { useRouter } from "next/navigation";
+import getUser from "@/service/getUser";
+import DataAPI from "@/service/DataAPI";
 
 export default function Navbar() {
-  useEffect(() => {
-    themeChange(false);
+  const [fotoProfil, setFotoProfil] = useState(profil);
 
+  const router = useRouter();
+  useEffect(() => {
     let tombolTema = document.getElementsByClassName("tombol-tema");
+    let elementRegisterToken = document.querySelector("#register-token");
 
     if (document.querySelector("html").getAttribute("data-theme") == "dark") {
       tombolTema[0].innerHTML = "Light Mode";
     }
 
-    firstLoadService();
-  }, []);
+    if (sessionStorage.getItem("isAdmin")) {
+      elementRegisterToken.classList.remove("hidden");
+    }
+
+    isLoginService(router);
+    getUser();
+
+    let username = localStorage.getItem("username");
+    let token = localStorage.getItem("token");
+
+    setFotoProfil(
+      new DataAPI().url + "/api/himasti/user/foto/" + username + "/" + token
+    );
+    themeChange(false);
+  }, [router]);
 
   return (
-    <div className="navbar fixed top-0 bg-base-100 shadow-md sm:absolute z-10">
-      {/* alert start */}
-
+    <div className="navbar fixed top-0 bg-base-100 shadow-md z-10">
+      {/* alert error start */}
       <div className=" fixed z-10 w-full flex justify-center left-0 px-5 -top-[150px]">
-        <div className="max-w-2xl w-full hidden" id="alert">
-          <div className="alert flex justify-center">
+        <div id="alert-error" className="max-w-2xl w-full hidden">
+          <div className="alert alert-error flex justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="stroke-current shrink-0 h-6 w-6"
@@ -37,32 +56,62 @@ export default function Navbar() {
               viewBox="0 0 24 24"
             >
               <path
+                id="path-alert"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            <span id="alert-msg"></span>
+            <span id="alert-error-msg"></span>
           </div>
         </div>
       </div>
 
-      {/* alert end */}
+      {/* alert error end */}
+
+      {/* alert success start */}
+
+      <div className=" fixed z-10 w-full flex justify-center left-0 px-5 -top-[150px]">
+        <div id="alert-success" className="max-w-2xl w-full hidden">
+          <div className="alert flex justify-center alert-success">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="stroke-current shrink-0 h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                id="path-alert"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span id="alert-success-msg"></span>
+          </div>
+        </div>
+      </div>
+
+      {/* alert success end */}
 
       <div>
         <label
           tabIndex="0"
-          onClick={() => {
-            let menu = document.querySelector("#menu");
-            menu.classList.toggle("hidden");
-            menu.classList.toggle("flex");
-          }}
-          className="btn btn-ghost btn-circle lg:hidden"
+          className="btn btn-ghost btn-circle swap swap-rotate lg:hidden"
         >
+          <input
+            type="checkbox"
+            onChange={() => {
+              let menu = document.querySelector("#menu");
+              menu.classList.toggle("hidden");
+              menu.classList.toggle("flex");
+            }}
+          />
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
+            className="swap-off h-6 w-6"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -74,8 +123,19 @@ export default function Navbar() {
               d="M4 6h16M4 12h16M4 18h7"
             />
           </svg>
+
+          <svg
+            className="swap-on fill-current h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            // width="32"
+            // height="32"
+            viewBox="0 0 512 512"
+          >
+            <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
+          </svg>
         </label>
       </div>
+
       <div className="flex-1">
         <Link
           href="/"
@@ -95,13 +155,12 @@ export default function Navbar() {
           </Link>
         </li>
         <li>
-          <Link className="w-full" href={"#about"}>
+          <Link className="w-full" href={"/#about"}>
             About
           </Link>
         </li>
-        <li className="">
+        <li>
           <div
-            id=""
             className="tombol-tema"
             data-toggle-theme="light,dark"
             data-act-class="ACTIVECLASS"
@@ -128,7 +187,7 @@ export default function Navbar() {
           </div>
         </li>
         <li>
-          <Link href={"/login"} id="tombol-login" className="">
+          <Link href={"/login"} id="tombol-login" className="font-semibold">
             Login
           </Link>
         </li>
@@ -137,8 +196,17 @@ export default function Navbar() {
       <div className="flex-none gap-2 hidden ml-5" id="bagian-profil">
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-            <div className="w-10 rounded-full border border-primary">
-              <Image alt="foto-profil" src={profil}></Image>
+            <div
+              className="w-10 rounded-full border border-primary"
+              id="tempat-foto-profil"
+            >
+              <Image
+                src={fotoProfil}
+                priority={true}
+                alt="foto-profil"
+                width={40}
+                height={40}
+              />
             </div>
           </label>
           <ul
@@ -146,24 +214,26 @@ export default function Navbar() {
             className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
           >
             <li>
-              <a className="justify-between">
+              <Link href={"/profile"} className="justify-between">
                 Profile
-                <span className="badge">New</span>
-              </a>
+              </Link>
+            </li>
+            <li id="register-token" className="hidden">
+              <Link href={"/register-token"}>Register Token</Link>
             </li>
             <li>
               <a>Settings</a>
             </li>
             <li>
               <button
-                onClick={() => {
+                onClick={async () => {
                   if (LogoutService()) {
-                    alertService("success", "Berhasil Logout");
+                    alertService(null, "Berhasil Logout");
                     setTimeout(() => {
-                      location.reload();
+                      window.location.href = "/";
                     }, 1900);
                   } else {
-                    alertService(null, "");
+                    alertService("error", "Gagal Logout");
                   }
                 }}
               >

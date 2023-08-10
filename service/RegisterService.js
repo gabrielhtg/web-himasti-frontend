@@ -1,5 +1,9 @@
+import DataAPI from "./DataAPI";
+
 export default async function registerService(token, username, password, nama) {
-  const url = "http://192.168.43.201:8080/api/himasti/user/register";
+  const dataapi = new DataAPI();
+
+  const url = dataapi.url + "/api/himasti/user/register";
 
   const pecahNama = nama.split(" ");
   const reqData = {

@@ -1,8 +1,13 @@
-export default async function checkIsLogin() {
+import DataAPI from "./DataAPI";
+import isDataLengkap from "./isDataLengkap";
+
+export default async function checkIsLogin(router) {
   let bagianProfil = document.querySelector("#bagian-profil");
   let tombolLogin = document.querySelector("#tombol-login");
 
-  const url = "http://192.168.43.201:8080/api/himasti/auth/islogin";
+  const dataapi = new DataAPI();
+
+  const url = dataapi.url + "/api/himasti/auth/islogin";
 
   try {
     const response = await fetch(url, {
@@ -13,11 +18,22 @@ export default async function checkIsLogin() {
       },
     });
 
+    const data = await response.json();
+
     // user sudah login
-    if (response.status === 200) {
-      bagianProfil.classList.remove("hidden");
-      tombolLogin.classList.add("hidden");
-    } else if (response.status === 401) {
+    if (data.error == false) {
+      if (bagianProfil.classList.contains("hidden")) {
+        bagianProfil.classList.remove("hidden");
+        tombolLogin.classList.add("hidden");
+      }
+
+      if (!(await isDataLengkap())) {
+        router.push("/profile/edit-profile");
+      }
+
+      sessionStorage.setItem("isLogin", "true");
+    } else {
+      sessionStorage.setItem("isLogin", "false");
     }
   } catch {}
 }

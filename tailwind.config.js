@@ -16,14 +16,11 @@ module.exports = {
         utama: "0px 7px 29px 0px rgba(100, 100, 111, 0.2)",
       },
 
-      colors: {
-        formulir: "#243c5a",
-      },
+      colors: {},
     },
   },
   plugins: [require("daisyui")],
   daisyui: {
     themes: ["light", "dark"],
-    default: "light",
   },
 };

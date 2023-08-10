@@ -1,5 +1,3 @@
-"use client";
-
 import Navbar from "../Navbar";
 import Login from "./Login";
 

@@ -1,5 +1,9 @@
+import DataAPI from "./DataAPI";
+
 export default async function loginService(username, password) {
-  const url = "http://192.168.43.201:8080/api/himasti/auth/login";
+  const data = new DataAPI();
+
+  let url = data.url + "/api/himasti/auth/login";
 
   const reqData = {
     username: username,
@@ -22,9 +26,6 @@ export default async function loginService(username, password) {
       if (data.error == false) {
         localStorage.setItem("username", username);
         localStorage.setItem("token", data.data);
-
-        console.log("Ini adalah username " + localStorage.getItem("username"));
-        console.log("Ini adalah token " + localStorage.getItem("token"));
         return true;
       } else {
         return false;

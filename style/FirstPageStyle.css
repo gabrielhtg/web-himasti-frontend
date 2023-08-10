@@ -35,7 +35,7 @@
   }
 }
 
-.image-container {
+#gambar-hanny {
   opacity: 0;
   animation: fadeIn 0.7s ease-in-out forwards;
   animation-delay: 0.8s;
